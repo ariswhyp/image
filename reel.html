@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will You Be My Girlfriend?</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', cursive;
+      overflow: hidden;
+    }
+    body {
+      background-color: #fff0f5;
+      transition: background 1s ease;
+    }
+    .interaction-area {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 28px;
+      color: #d63384;
+      margin-bottom: 30px;
+    }
+    .btn {
+      font-size: 16px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      position: relative;
+      z-index: 10;
+    }
+    .yes-btn {
+      background-color: #ff69b4;
+      color: white;
+    }
+    .no-btn {
+      background-color: #d3d3d3;
+      color: #333;
+    }
+    .no-btn.movable {
+      position: fixed;
+    }
+    .button-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .form-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeScale 0.6s ease-in-out forwards;
+      width: 100%;
+      max-width: 360px;
+      padding: 30px 20px;
+      margin: 50px auto;
+      text-align: center;
+      border-radius: 20px;
+      position: relative;
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+    @keyframes fadeScale {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .form-container h2 {
+      color: #e75480;
+      margin-bottom: 10px;
+    }
+    .form-container input,
+    .form-container textarea {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+    }
+    .form-container button {
+      margin-top: 10px;
+      background-color: #d63384;
+      color: white;
+    }
+    .result {
+      margin-top: 15px;
+      font-style: italic;
+      color: #444;
+      text-align: center;
+    }
+    #heartsContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+    }
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: floatHeart 6s ease-out forwards;
+    }
+    @keyframes floatHeart {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-120vh) scale(1.5);
+      }
+    }
+    .background-overlay {
+      content: '';
+      position: fixed;
+      bottom: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://github.com/ariswhyp/image/blob/main/Gambar%20WhatsApp%202025-04-09%20pukul%2020.16.42_4facd13a.jpg?raw=true');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+      transition: bottom 1.5s ease-in-out;
+    }
+    .background-overlay.active {
+      bottom: 0;
+    }
+
+    @keyframes slideFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .final-box {
+      max-width: 400px;
+      margin: 80px auto;
+      background-color: aliceblue;
+      background-size: cover;
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+      text-align: center;
+      color: #fff;
+      backdrop-filter: brightness(0.8);
+      z-index: 1000;
+      position: relative;
+      animation: slideFadeIn 1s ease forwards;
+    }
+    .final-box h1 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #000000;
+    }
+    .final-box p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000000;
+    }
+  </style>
+</head>
+<body>
+  <div class="background-overlay" id="bgOverlay"></div>
+  <div class="interaction-area" id="interactionArea">
+    <h1 id="mainTitle">Will You Be My Girlfriend?</h1>
+    <div class="button-wrapper">
+      <button class="btn yes-btn" id="yesButton">Yes I do 💞</button>
+      <button class="btn no-btn" id="noButton">No,leave me alone 💔</button>
+    </div>
+  </div>
+  <div class="form-container" id="formContainer">
+    <h2>Our First Date 💖</h2>
+    <input type="text" id="place" placeholder="Tempat kamu ingin main...">
+    <input type="date" id="date">
+    <textarea id="note" rows="3" placeholder="Kata kata hari ini..."></textarea>
+    <button class="btn" onclick="submitAgenda()">Kirim 💌</button>
+    <div class="result" id="result"></div>
+  </div>
+  <div id="heartsContainer"></div>
+  <script>
+    const noBtn = document.getElementById('noButton');
+    const yesBtn = document.getElementById('yesButton');
+    const formContainer = document.getElementById('formContainer');
+    const interactionArea = document.getElementById('interactionArea');
+    const resultDiv = document.getElementById('result');
+    const heartsContainer = document.getElementById('heartsContainer');
+    const bgOverlay = document.getElementById('bgOverlay');
+
+    const heartIcons = ['❤️', '💖', '💘', '💝', '💗', '💓', '💞'];
+    const heartColors = ['#ff69b4', '#ff1493', '#ff0000', '#db7093', '#ff6ec7', '#d63384'];
+
+    function moveButtonRandomly() {
+      noBtn.classList.add('movable');
+      const padding = 20;
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+      const maxX = window.innerWidth - btnWidth - padding;
+      const maxY = window.innerHeight - btnHeight - padding;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      const icon = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+      const color = heartColors[Math.floor(Math.random() * heartColors.length)];
+      heart.innerText = icon;
+      heart.style.color = color;
+      const size = Math.random() * 20 + 20;
+      const left = Math.random() * window.innerWidth;
+      heart.style.fontSize = `${size}px`;
+      heart.style.left = `${left}px`;
+      heart.style.bottom = `0`;
+      heartsContainer.appendChild(heart);
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    function launchHearts() {
+      let count = 0;
+      const interval = setInterval(() => {
+        createHeart();
+        count++;
+        if (count >= 60) clearInterval(interval);
+      }, 80);
+    }
+
+    noBtn.addEventListener('click', moveButtonRandomly);
+
+    yesBtn.addEventListener('click', () => {
+      interactionArea.style.display = 'none';
+      formContainer.style.display = 'flex';
+      bgOverlay.classList.add('active');
+      launchHearts();
+    });
+
+    function submitAgenda() {
+      const place = document.getElementById('place').value;
+      const date = document.getElementById('date').value;
+      const note = document.getElementById('note').value;
+      if (place && date) {
+        formContainer.style.display = 'none';
+        const resultHTML = `
+          <div class="final-box">
+            <h1>💌 Our First Date 💌</h1>
+            <p><strong>Tempat:</strong> ${place}</p>
+            <p><strong>Tanggal:</strong> ${date}</p>
+            <p><strong>Kata Kata hari ini:</strong> "${note}"</p>
+            <br>
+            <p><em>
+              Jangan lupa hasil nya di screenshot dan dikirim ke Aris yaa... Aku tungguin jawabanmu loh 💖<br>
+              Jangan kabur, yaa 😚💞
+            </em></p>
+          </div>`;
+        document.body.innerHTML += resultHTML;
+      } else {
+        resultDiv.innerHTML = `Isi dulu tempat dan tanggal yaa~ 😘`;
+      }
+    }
+  </script>
+</body>
+</html>
