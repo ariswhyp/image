@@ -206,7 +206,7 @@
     <h2>Our First Date 💖</h2>
     <input type="text" id="place" placeholder="Tempat kamu ingin main...">
     <input type="date" id="date">
-    <textarea id="note" rows="3" placeholder="Kata kata hari ini..."></textarea>
+    <input type="note" id="note" placeholder="Kata kata hari ini...">
     <button class="btn" onclick="submitAgenda()">Kirim 💌</button>
     <div class="result" id="result"></div>
   </div>
@@ -276,7 +276,7 @@
       const place = document.getElementById('place').value;
       const date = document.getElementById('date').value;
       const note = document.getElementById('note').value;
-      if (place && date) {
+      if (place && date && note) {
         formContainer.style.display = 'none';
         const resultHTML = `
           <div class="final-box">
@@ -292,7 +292,7 @@
           </div>`;
         document.body.innerHTML += resultHTML;
       } else {
-        resultDiv.innerHTML = `Isi dulu tempat dan tanggal yaa~ 😘`;
+        resultDiv.innerHTML = `Di isi semua yaa~ 😘`;
       }
     }
   </script>
