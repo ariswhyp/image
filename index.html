@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Will You Be My Girlfriend?</title>
+  <title>2025 kok masih gamon</title>
   <style>
     * {
       box-sizing: border-box;
@@ -69,7 +69,7 @@
       align-items: center;
       animation: fadeScale 0.6s ease-in-out forwards;
       width: 100%;
-      max-width: 320px;
+      max-width: 360px;
       padding: 30px 20px;
       margin: 50px auto;
       text-align: center;
@@ -167,7 +167,7 @@
     }
 
     .final-box {
-      max-width: 320px;
+      max-width: 400px;
       margin: 80px auto;
       background-color: aliceblue;
       background-size: cover;
@@ -196,17 +196,16 @@
 <body>
   <div class="background-overlay" id="bgOverlay"></div>
   <div class="interaction-area" id="interactionArea">
-    <h1 id="mainTitle">Will You Be My Girlfriend?</h1>
+    <h1 id="mainTitle">Apakah anda masih gamon?</h1>
     <div class="button-wrapper">
-      <button class="btn yes-btn" id="yesButton">Yes I do 💞</button>
-      <button class="btn no-btn" id="noButton">No, just be friends 💔</button>
+      <button class="btn yes-btn" id="yesButton">Jelas masih 💞</button>
+      <button class="btn no-btn" id="noButton">Tidak 💔</button>
     </div>
   </div>
   <div class="form-container" id="formContainer">
-    <h2>Our First Date 💖</h2>
-    <input type="text" id="place" placeholder="Tempat kamu ingin main...">
-    <input type="date" id="date">
-    <input type="note" id="note" placeholder="Kata kata hari ini...">
+    <h2>Kenapa kamu gamon 💖</h2>
+    <input type="text" id="alasan" placeholder="Alasan gamon...">
+    <input id="note" id="note" placeholder="Pesan untuk mantan...">
     <button class="btn" onclick="submitAgenda()">Kirim 💌</button>
     <div class="result" id="result"></div>
   </div>
@@ -273,19 +272,20 @@
     });
 
     function submitAgenda() {
-      const place = document.getElementById('place').value;
-      const date = document.getElementById('date').value;
+      const alasan = document.getElementById('alasan').value;
       const note = document.getElementById('note').value;
-      if (place && date && note) {
+      if (alasan && note) {
         formContainer.style.display = 'none';
         const resultHTML = `
           <div class="final-box">
-            <h1>💌 Our First Date 💌</h1>
-            <p><strong>Tempat:</strong> ${place}</p>
-            <p><strong>Tanggal:</strong> ${date}</p>
-            <p><strong>Kata Kata hari ini:</strong> "${note}"</p>
+            <h1>💌 Cie Gamon 💌</h1>
+            <p><strong>alasan gamon:</strong> ${alasan}</p>
+            <p><strong>Pesan Untuk mantan:</strong> "${note}"</p>
             <br>
             <p><em>
+              AWOKAWOKAWOK 2025 GAMON <br>
+              KOCAK GAMON WKWKWKWK <br>
+              JANGAN YA DEKK YAAA <br>
               Jangan lupa hasil nya di screenshot dan dikirim ke Aris yaa... Aku tungguin jawabanmu loh 💖<br>
               Jangan kabur, yaa 😚💞
             </em></p>
